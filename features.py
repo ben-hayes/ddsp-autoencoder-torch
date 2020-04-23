@@ -47,7 +47,7 @@ class LoudnessEncoder(nn.Module):
         self.hop_length = hop_length
         self.data_loud_mu = data_loud_mu
         self.data_loud_std = data_loud_std
-        self.time_dim = out_size
+        self.time_dim = int(out_size)
 
         self.stft = Spectrogram(n_fft=n_fft, hop_length=hop_length)
         self.db = AmplitudeToDB()
