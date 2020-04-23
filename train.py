@@ -86,6 +86,7 @@ def create_model(
 
 def train(
         model,
+        device,
         data_loader,
         optimizer,
         criterion,
@@ -100,7 +101,7 @@ def train(
         model.zero_grad()
         optimizer.zero_grad()
 
-        audio = data["audio"].to(model.device)
+        audio = data["audio"].to(device)
         reconstruction = model(audio)
 
         loss = criterion(audio, reconstruction)
@@ -122,6 +123,7 @@ def train(
 
 def validate(
         model,
+        device,
         data_loader,
         criterion,
         type="val"):
@@ -130,7 +132,7 @@ def validate(
     total_loss = 0.0
 
     for batch, data in enumerate(data_loader):
-        audio = data["audio"].to(model.device)
+        audio = data["audio"].to(device)
         reconstruction = model(audio)
 
         loss = criterion(audio, reconstruction)
@@ -170,6 +172,7 @@ def save_checkpoint(
 
 def run_train_loop(
         model,
+        device,
         train_loader,
         val_loader,
         test_loader,
@@ -179,7 +182,7 @@ def run_train_loop(
         lr_decay_interval,
         model_save_path):
 
-    criterion = MultiscaleSpectralLoss().to(model.device)
+    criterion = MultiscaleSpectralLoss().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, lr_decay)
 
@@ -191,13 +194,19 @@ def run_train_loop(
 
         train_loss, n_steps = train(
             model,
+            device,
             train_loader,
             optimizer,
             criterion,
             scheduler,
             lr_decay_interval,
             n_steps)
-        val_loss = validate()
+        val_loss = validate(
+            model,
+            device,
+            val_loader,
+            criterion
+        )
 
         if val_loss < lowest_val_loss:
             lowest_val_loss = val_loss
@@ -242,7 +251,7 @@ def run_train_loop(
                 lowest_val_loss,
                 epochs_since_lowest)
 
-    validate(model, test_loader, criterion, type="test")
+    validate(model, device, test_loader, criterion, type="test")
 
 
 if __name__ == "__main__":
@@ -267,6 +276,7 @@ if __name__ == "__main__":
 
     run_train_loop(
         model,
+        device,
         train_loader,
         val_loader,
         test_loader,
