@@ -105,7 +105,7 @@ class F0Encoder(nn.Module):
         self.min_freq = min_freq
         self.max_freq = max_freq
         self.hop_length = hop_length
-        self.time_dim = out_size
+        self.time_dim = int(out_size)
 
     def forward(self, x, known_f0=None, scale=True, mode='dio'):
         if known_f0 is not None:
