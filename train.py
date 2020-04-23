@@ -116,7 +116,7 @@ def train(
         print("Batch #%d - train loss %.4f" % (batch, loss.item()), end="\r")
 
     epoch_loss = total_loss / (batch + 1)
-    print("Batch #%d - train loss %.4f     " % (batch, epoch_loss))
+    print("Epoch #%d - train loss %.4f     " % (batch, epoch_loss))
 
     return epoch_loss, n_steps
 
@@ -142,7 +142,7 @@ def validate(
               % (batch, type, loss.item()), end="\r")
 
     val_loss = total_loss / (batch + 1)
-    print("Batch #%d - %s loss %.4f     " % (batch, type, val_loss))
+    print("Epoch #%d - %s loss %.4f     " % (batch, type, val_loss))
 
     return val_loss
 
