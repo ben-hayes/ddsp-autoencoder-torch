@@ -1,3 +1,14 @@
+"""
+Ben Hayes 2020
+
+ECS7013P Deep Learning for Audio & Music
+
+File: utils.py
+Description: A handful of convenience definitions. These are hangovers from
+             having originally written this code in a Jupyter notebook and
+             should cease to exist after a refactor.
+"""
+
 SAMPLE_RATE = 16000
 SAMPLE_LENGTH_IN_SECONDS = 4
 
