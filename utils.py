@@ -17,8 +17,9 @@ param_ranges = {
     "amplitude": {"min": 0.0, "max": 1.0}
 }
 
+
 def scale_param(param, range_name):
     return param\
-        * (param_ranges[range_name]["max"]\
+        * (param_ranges[range_name]["max"]
             - param_ranges[range_name]["min"])\
         + param_ranges[range_name]["min"]
