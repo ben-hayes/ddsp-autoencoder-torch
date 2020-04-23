@@ -55,7 +55,7 @@ class ZEncoder(nn.Module):
                 "f_max": 8000.0
             })
 
-        self.time_dim = self.in_size // hop_length
+        self.time_dim = int(self.in_size // hop_length)
         self.norm = nn.LayerNorm((n_mfcc, self.time_dim))
 
         self.gru = nn.GRU(input_size=n_mfcc, hidden_size=rnn_dim)

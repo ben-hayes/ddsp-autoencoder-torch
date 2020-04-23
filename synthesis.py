@@ -42,7 +42,7 @@ class HarmonicOscillatorBank(nn.Module):
         """
         super().__init__()
         self.sr = sr
-        self.out_size = sr * out_size_in_seconds
+        self.out_size = int(sr * out_size_in_seconds)
         self.n_oscillators = n_oscillators
         self.min_freq = min_freq
         self.max_freq = max_freq
@@ -103,7 +103,7 @@ class FilteredNoise(nn.Module):
         """
 
         super().__init__()
-        self.out_size = sr * out_size_in_seconds
+        self.out_size = int(sr * out_size_in_seconds)
         self.hop_length = hop_length
         self.ir_length = ir_length
         self.attenuation = attentuation
