@@ -76,7 +76,7 @@ def create_model(
     net = DDSPAutoencoder(
         sr=sr,
         sample_size_in_seconds=sample_size_in_seconds,
-        z_dims=z_dim,
+        z_size=z_dim,
         data_mu=data_mu,
         data_std=data_std,
         data_loud_mu=data_loud_mu,
