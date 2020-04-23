@@ -129,7 +129,7 @@ class DDSPDecoder(nn.Module):
                 16.
         """
         super().__init__()
-        self.out_size = out_size_in_seconds * sr
+        self.out_size = int(out_size_in_seconds * sr)
         self.f0_mlp = MLP(in_size=1)
         self.loudness_mlp = MLP(in_size=1)
         self.z_mlp = MLP(in_size=z_size)
@@ -229,7 +229,7 @@ class DDSPAutoencoder(nn.Module):
 
         self.data_mu = data_mu
         self.data_std = data_std
-        self.out_size = sr * sample_size_in_seconds
+        self.out_size = int(sr * sample_size_in_seconds)
 
         self.encoder = DDSPEncoder(
             sr=sr,
